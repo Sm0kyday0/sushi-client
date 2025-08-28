@@ -69,6 +69,60 @@ public class CevBreakModule extends BaseModule {
                 0.5F, 0, 0.5F));
     }
 
+    private void placeSupporterBlocks(BlockPos targetPos, CevBreakAttack attack) {
+        if (attack.getTarget() == null) return;
+
+        BlockPos targetFootPos = new BlockPos(
+            attack.getTarget().posX,
+            Math.floor(attack.getTarget().posY),
+            attack.getTarget().posZ
+        );
+
+        BlockPos[] adjacentPositions = {
+            targetPos.add(1, 0, 0),
+            targetPos.add(-1, 0, 0),
+            targetPos.add(0, 0, 1),
+            targetPos.add(0, 0, -1)
+        };
+
+        BlockPos pillarBasePos = null;
+        double minDistance = Double.MAX_VALUE;
+        for (BlockPos pos : adjacentPositions) {
+            double distance = getPlayer().getDistanceSq(pos);
+            if (distance < minDistance) {
+                minDistance = distance;
+                pillarBasePos = pos;
+            }
+        }
+
+        if (pillarBasePos == null) return;
+
+        int startY = targetFootPos.getY();
+        int endY = targetPos.getY();
+        int requiredHeight = endY - startY + 1;
+
+        int blocksToPlace = Math.max(3, requiredHeight);
+
+        BlockPos currentPillarPos = new BlockPos(pillarBasePos.getX(), startY, pillarBasePos.getZ());
+
+        for (int i = 0; i < blocksToPlace; i++) {
+            BlockPos placePos = currentPillarPos.add(0, i, 0);
+
+            if (!getWorld().isAirBlock(placePos)) continue;
+
+            BlockPlaceInfo info = BlockUtils.findBlockPlaceInfo(getWorld(), placePos);
+            if (info != null) {
+                TaskExecutor.newTaskChain()
+                        .supply(Item.getItemFromBlock(Blocks.OBSIDIAN))
+                        .then(new ItemSwitchTask(null, true))
+                        .abortIfFalse()
+                        .then(() -> BlockUtils.place(info, false))
+                        .execute();
+                break;
+            }
+        }
+    }
+
     @EventHandler(timing = EventTiming.POST)
     public void onGameTick(GameTickEvent e) {
         lastActive = false;
@@ -82,7 +136,10 @@ public class CevBreakModule extends BaseModule {
             InventoryUtils.antiWeakness(antiWeakness.getValue(), () -> sendPacket(new CPacketUseEntity(attack.getCrystal())));
         } else if (!attack.isObsidianPlaced()) {
             BlockPlaceInfo info = BlockUtils.findBlockPlaceInfo(getWorld(), attack.getObsidianPos());
-            if (info == null) return;
+            if (info == null) {
+                placeSupporterBlocks(attack.getObsidianPos(), attack);
+                return;
+            }
             TaskExecutor.newTaskChain()
                     .supply(Item.getItemFromBlock(Blocks.OBSIDIAN))
                     .then(new ItemSwitchTask(null, true))

@@ -44,18 +44,7 @@ import net.sushiclient.client.modules.movement.SpeedModule;
 import net.sushiclient.client.modules.movement.SprintModule;
 import net.sushiclient.client.modules.movement.StepModule;
 import net.sushiclient.client.modules.player.*;
-import net.sushiclient.client.modules.render.BlockHighlightModule;
-import net.sushiclient.client.modules.render.CivBreakHelperModule;
-import net.sushiclient.client.modules.render.FullBrightModule;
-import net.sushiclient.client.modules.render.HoleBreakEsp;
-import net.sushiclient.client.modules.render.HoleEspModule;
-import net.sushiclient.client.modules.render.HoleMinerHelperModule;
-import net.sushiclient.client.modules.render.NameTagsModule;
-import net.sushiclient.client.modules.render.NoRenderModule;
-import net.sushiclient.client.modules.render.PlayerEspModule;
-import net.sushiclient.client.modules.render.SearchModule;
-import net.sushiclient.client.modules.render.StorageEspModule;
-import net.sushiclient.client.modules.render.TracersModule;
+import net.sushiclient.client.modules.render.*;
 import net.sushiclient.client.modules.world.AntiGhostBlockModule;
 import net.sushiclient.client.modules.world.FakePlayerModule;
 import net.sushiclient.client.modules.world.NoEntityTraceModule;
@@ -133,6 +122,7 @@ public class GsonModules implements Modules {
         // Render
         addModuleFactory("block_highlight", BlockHighlightModule::new, true);
         addModuleFactory("civ_break_helper", CivBreakHelperModule::new, true);
+        addModuleFactory("cev_break_helper", CevBreakHelperModule::new, true);
         addModuleFactory("full_bright", FullBrightModule::new, true);
         addModuleFactory("hole_break_esp", HoleBreakEsp::new, true);
         addModuleFactory("hole_esp", HoleEspModule::new, true);
