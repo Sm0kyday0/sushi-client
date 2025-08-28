@@ -87,6 +87,7 @@ public class GsonModules implements Modules {
         addModuleFactory("kill_aura", KillAuraModule::new, true);
         addModuleFactory("offhand", OffhandModule::new, true);
         addModuleFactory("piston_aura", PistonAuraModule::new, true);
+        addModuleFactory("piston_push", PistonPushModule::new, true);
         addModuleFactory("surround", SurroundModule::new, true);
         addModuleFactory("velocity", VelocityModule::new, true);
 
