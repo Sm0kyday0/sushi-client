@@ -2,12 +2,12 @@
   {
     "modid": "sushi",
     "name": "Sushi Client",
-    "description": "An utility client for anarchy servers",
+    "description": "Custom Sushi Client!! STRONG!!",
     "version": "1.0",
     "mcversion": "1.12.2",
-    "url": "https://toshimichi.net",
+    "url": "https://github.com/Sm0kyday0/sushi-client",
     "authorList": [
-      "Toshimichi"
+      "_Smoky319"
     ]
   }
 ]
