@@ -21,6 +21,7 @@ import net.sushiclient.client.modules.combat.AutoPullModule;
 import net.sushiclient.client.modules.combat.AutoTotemModule;
 import net.sushiclient.client.modules.combat.AutoTrapModule;
 import net.sushiclient.client.modules.combat.CivBreakModule;
+import net.sushiclient.client.modules.combat.CevBreakModule;
 import net.sushiclient.client.modules.combat.CriticalsModule;
 import net.sushiclient.client.modules.combat.CrystalAuraModule;
 import net.sushiclient.client.modules.combat.DeathBowModule;
@@ -104,6 +105,7 @@ public class GsonModules implements Modules {
         addModuleFactory("auto_totem", AutoTotemModule::new, true);
         addModuleFactory("auto_trap", AutoTrapModule::new, true);
         addModuleFactory("civ_break", CivBreakModule::new, true);
+        addModuleFactory("cev_break", CevBreakModule::new, true);
         addModuleFactory("criticals", CriticalsModule::new, true);
         addModuleFactory("crystal_aura", CrystalAuraModule::new, true);
         addModuleFactory("death_bow", DeathBowModule::new, true);
